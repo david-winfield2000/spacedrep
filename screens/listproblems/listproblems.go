@@ -4,6 +4,7 @@ import (
 	"spacedrep/internal/storage"
 	"spacedrep/models"
 	"spacedrep/styles"
+	"strconv"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -146,9 +147,12 @@ func (m model) View() string {
 		filter = "All"
 	}
 
-	s := styles.HeaderStyle.Render("Spaced Repetition") + "\n\n" + filter + " Problems:\n\n"
+	count := len(visible)
 
-	if len(visible) == 0 {
+	s := styles.HeaderStyle.Render("Spaced Repetition") + "\n\n" +
+		filter + " Problems (" + strconv.Itoa(count) + "):\n\n"
+
+	if count == 0 {
 		s += "No problems\n"
 	} else {
 		for i, p := range visible {
