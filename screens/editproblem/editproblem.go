@@ -30,10 +30,14 @@ func InitialModel(problems []*models.Problem, p *models.Problem) model {
 	url.SetValue(p.URL)
 	url.Placeholder = "Problem URL"
 
+	tag := textinput.New()
+	tag.SetValue(p.Tag)
+	tag.Placeholder = "Problem Tag"
+
 	return model{
 		problems: problems,
 		problem:  p,
-		inputs:   []textinput.Model{name, url},
+		inputs:   []textinput.Model{name, url, tag},
 		focus:    0,
 	}
 }
@@ -56,6 +60,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			m.problem.Name = m.inputs[0].Value()
 			m.problem.URL = m.inputs[1].Value()
+			m.problem.Tag = m.inputs[2].Value()
 
 			_ = storage.SaveProblems(m.problems)
 
@@ -84,7 +89,8 @@ func (m model) View() string {
 	s :=
 		styles.HeaderStyle.Render("Edit Problem") + "\n\n" +
 			m.inputs[0].View() + "\n" +
-			m.inputs[1].View() + "\n\n" +
+			m.inputs[1].View() + "\n" +
+			m.inputs[2].View() + "\n\n" +
 			styles.HelpStyle.Render("tab switch fields | enter save | esc cancel")
 
 	return styles.Style.Render(s)

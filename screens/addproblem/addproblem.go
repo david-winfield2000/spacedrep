@@ -25,8 +25,11 @@ func InitialModel() model {
 	url := textinput.New()
 	url.Placeholder = "Problem URL"
 
+	tag := textinput.New()
+	tag.Placeholder = "Problem Tag"
+
 	return model{
-		inputs: []textinput.Model{name, url},
+		inputs: []textinput.Model{name, url, tag},
 		focus:  0,
 	}
 }
@@ -48,10 +51,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			name := m.inputs[0].Value()
 			url := m.inputs[1].Value()
+			tag := m.inputs[2].Value()
 
 			return m, func() tea.Msg {
 				return AddProblemMsg{
-					Problem: models.NewProblem(name, url),
+					Problem: models.NewProblem(name, url, tag),
 				}
 			}
 
@@ -76,7 +80,8 @@ func (m model) View() string {
 	s :=
 		styles.HeaderStyle.Render("Add New Problem") + "\n\n" +
 			m.inputs[0].View() + "\n" +
-			m.inputs[1].View() + "\n\n" +
+			m.inputs[1].View() + "\n" +
+			m.inputs[2].View() + "\n\n" +
 			styles.HelpStyle.Render("tab switch fields | enter save | esc cancel")
 
 	return styles.Style.Render(s)
