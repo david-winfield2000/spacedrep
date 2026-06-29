@@ -26,18 +26,18 @@ func InitialModel(problems []*models.Problem, p *models.Problem) model {
 	name.Focus()
 	name.Placeholder = "Problem Name"
 
-	url := textinput.New()
-	url.SetValue(p.URL)
-	url.Placeholder = "Problem URL"
-
 	tag := textinput.New()
 	tag.SetValue(p.Tag)
 	tag.Placeholder = "Problem Tag"
 
+	url := textinput.New()
+	url.SetValue(p.URL)
+	url.Placeholder = "Problem URL"
+
 	return model{
 		problems: problems,
 		problem:  p,
-		inputs:   []textinput.Model{name, url, tag},
+		inputs:   []textinput.Model{name, tag, url},
 		focus:    0,
 	}
 }
@@ -59,8 +59,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		case "enter":
 			m.problem.Name = m.inputs[0].Value()
-			m.problem.URL = m.inputs[1].Value()
-			m.problem.Tag = m.inputs[2].Value()
+			m.problem.Tag = m.inputs[1].Value()
+			m.problem.URL = m.inputs[2].Value()
 
 			_ = storage.SaveProblems(m.problems)
 

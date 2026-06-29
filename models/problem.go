@@ -6,19 +6,19 @@ import (
 
 type Problem struct {
 	Name       string    `json:"name"`
-	URL        string    `json:"url"`
 	Tag        string    `json:"tag"`
+	URL        string    `json:"url"`
 	EaseFactor float64   `json:"ease_rating"`
 	Interval   int       `json:"interval"`
 	Repetition int       `json:"repetition"`
 	ReviewAt   time.Time `json:"review_at"`
 }
 
-func NewProblem(name string, url string, tag string) *Problem {
+func NewProblem(name string, tag string, url string) *Problem {
 	return &Problem{
 		Name:       name,
-		URL:        url,
 		Tag:        tag,
+		URL:        url,
 		EaseFactor: 2.5,
 		Interval:   0,
 		Repetition: 0,

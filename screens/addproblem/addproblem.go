@@ -22,14 +22,14 @@ func InitialModel() model {
 	name.Placeholder = "Problem Name"
 	name.Focus()
 
-	url := textinput.New()
-	url.Placeholder = "Problem URL"
-
 	tag := textinput.New()
 	tag.Placeholder = "Problem Tag"
 
+	url := textinput.New()
+	url.Placeholder = "Problem URL"
+
 	return model{
-		inputs: []textinput.Model{name, url, tag},
+		inputs: []textinput.Model{name, tag, url},
 		focus:  0,
 	}
 }
@@ -50,12 +50,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		case "enter":
 			name := m.inputs[0].Value()
-			url := m.inputs[1].Value()
-			tag := m.inputs[2].Value()
+			tag := m.inputs[1].Value()
+			url := m.inputs[2].Value()
 
 			return m, func() tea.Msg {
 				return AddProblemMsg{
-					Problem: models.NewProblem(name, url, tag),
+					Problem: models.NewProblem(name, tag, url),
 				}
 			}
 
