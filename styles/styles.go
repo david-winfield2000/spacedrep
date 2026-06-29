@@ -15,3 +15,7 @@ var HeaderStyle = lipgloss.NewStyle().
 
 var HelpStyle = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("#22D3EE")) // cyan
+
+var TagStyle = lipgloss.NewStyle().
+	Italic(true).
+	Foreground(lipgloss.Color("#777777")) // gray

@@ -1,6 +1,7 @@
 package listproblems
 
 import (
+	"fmt"
 	"spacedrep/internal/storage"
 	"spacedrep/models"
 	"spacedrep/styles"
@@ -160,7 +161,11 @@ func (m model) View() string {
 			if i == m.cursor {
 				cursor = ">"
 			}
-			s += cursor + " " + p.Name + "\n"
+			s += fmt.Sprintf("%s %-50s %s\n",
+				cursor,
+				p.Name,
+				styles.TagStyle.Render("("+p.Tag+")"),
+			)
 		}
 	}
 
